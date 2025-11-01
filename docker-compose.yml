@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=kineton_db
+      - POSTGRES_USER=kineton_user
+      - POSTGRES_PASSWORD=kineton_pass
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: sh /app/entrypoint.sh
+    volumes:
+      - .:/app
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://kineton_user:kineton_pass@db:5432/kineton_db
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - DJANGO_DEBUG=True
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+  media_volume:
