@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Your Dashboard</h1>
+
+<div style="display: flex; gap: 30px;">
+    <div style="width: 45%;">
+        <h2>Create New Task</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ task_form.as_p }}
+            <button type="submit" name="submit_task">Save Task</button>
+        </form>
+
+        <hr>
+
+        <h2>Create New Note</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ note_form.as_p }}
+            <button type="submit" name="submit_note">Save Note</button>
+        </form>
+    </div>
+
+    <div style="width: 45%;">
+        <h2>Your Tasks</h2>
+        <ul>
+            {% for task in tasks %}
+                <li>{{ task.title }} ({{ task.get_completed_display }})</li>
+            {% empty %}
+                <li>No tasks found.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Your Notes</h2>
+        <ul>
+            {% for note in notes %}
+                <li>{{ note.title }} 
+                {% if note.file %}(<a href="{{ note.file.url }}">file</a>){% endif %}
+                </li>
+            {% empty %}
+                <li>No notes found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
