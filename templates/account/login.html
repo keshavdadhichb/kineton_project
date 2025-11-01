@@ -2,16 +2,18 @@
 {% load allauth socialaccount %}
 
 {% block content %}
-    <h2>Login</h2>
-
-    {% providers_media_js %}
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
-
-    <h3>Or Login With:</h3>
-    <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    <div style="max-width: 400px; margin: 40px auto;">
+        <form method="post">
+            <h2>Login</h2>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+            
+            <hr style="border-color: #333; margin: 20px 0;">
+            
+            <a href="{% provider_login_url 'google' %}" class="button google-btn">
+                Login with Google
+            </a>
+        </form>
+    </div>
 {% endblock %}

@@ -3,25 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kineton Dashboard</title>
+    <title>Kineton Project</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; }
-        nav { background: #eee; padding: 10px; margin-bottom: 20px; }
-        nav a { margin-right: 15px; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #121212; /* Primary Black */
+            color: #f1f1f1; /* Off-white text */
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        nav .logo {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        nav span {
+            margin-left: 15px;
+        }
+
+        /* --- Headings --- */
+        h1, h2, h3 {
+            color: #fff;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        /* --- Form Styling --- */
+        form {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        form p {
+            margin: 0 0 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="file"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            box-sizing: border-box; /* Important for 100% width */
+            border-radius: 4px;
+        }
+
+        /* --- Buttons --- */
+        button, .button {
+            background: #fff; /* White button */
+            color: #000; /* Black text */
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9em;
+        }
+        button:hover, .button:hover {
+            background: #ccc;
+        }
+
+        .google-btn {
+            background: #4285F4; /* Google Blue */
+            color: white;
+            margin-top: 10px;
+        }
+        .google-btn:hover {
+            background: #357ae8;
+        }
+
+        /* --- List Styling for Dashboard --- */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        ul li {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        ul li a {
+            color: #4285F4;
+            text-decoration: none;
+        }
+        ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Dashboard Layout --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="{% url 'dashboard' %}">Dashboard</a>
-        {% if user.is_authenticated %}
-            <span>Hi, {{ user.username }}!</span>
-            <a href="{% url 'account_logout' %}">Logout</a>
-        {% else %}
-            <a href="{% url 'account_login' %}">Login</a>
-            <a href="{% url 'account_signup' %}">Sign Up</a>
-        {% endif %}
-    </nav>
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <a href="{% url 'dashboard' %}">Kineton Project</a>
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                    <span>Hi, {{ user.username }}!</span>
+                    <a href="{% url 'account_logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'account_login' %}">Login</a>
+                    <a href="{% url 'account_signup' %}">Sign Up</a>
+                {% endif %}
+            </div>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>
