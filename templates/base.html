@@ -5,101 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kineton Dashboard</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px 30px;
-            margin-bottom: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-        }
-
-        nav .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        nav a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        nav span {
-            color: #333;
-            font-weight: 500;
-            padding: 10px 20px;
-            background: #f0f0f0;
-            border-radius: 8px;
-        }
-
-        .content-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            nav .nav-links {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            nav a {
-                width: 100%;
-                text-align: center;
-            }
-        }
+        body { font-family: sans-serif; padding: 20px; }
+        nav { background: #eee; padding: 10px; margin-bottom: 20px; }
+        nav a { margin-right: 15px; }
     </style>
 </head>
 <body>
-    <div class="content-wrapper">
-        <nav>
-            <div class="nav-links">
-                <a href="#dashboard">Dashboard</a>
-            </div>
-            <div class="nav-links">
-                <!-- If user is authenticated -->
-                <span>Hi, Username!</span>
-                <a href="#logout">Logout</a>
-                
-                <!-- If user is not authenticated (uncomment below and comment above) -->
-                <!-- <a href="#login">Login</a>
-                <a href="#signup">Sign Up</a> -->
-            </div>
-        </nav>
-        
-        <!-- Content goes here -->
-    </div>
+    <nav>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        {% if user.is_authenticated %}
+            <span>Hi, {{ user.username }}!</span>
+            <a href="{% url 'account_logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'account_login' %}">Login</a>
+            <a href="{% url 'account_signup' %}">Sign Up</a>
+        {% endif %}
+    </nav>
+    {% block content %}
+    {% endblock %}
 </body>
 </html>
