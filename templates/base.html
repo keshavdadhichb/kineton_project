@@ -145,6 +145,36 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* --- Button styles --- */
+        .task-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 0.8em;
+            font-weight: normal;
+            background: #333;
+            color: #fff;
+        }
+        .btn-small.btn-edit {
+            background: #285d8e;
+            font-weight: bold;
+        }
+        .btn-small.btn-delete {
+            background: #8e2828;
+            font-weight: bold;
+        }
+        
+        /* --- New class to fix linter error --- */
+        .form-inline {
+            margin: 0;
+            padding: 0;
+            background: none;
+            border: none;
+        }
     </style>
 </head>
 <body>
